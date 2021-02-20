@@ -1,7 +1,6 @@
 library(ISLR)
 
 
-
 Freq <-table(Wage$maritl)
 RelFreq <- prop.table(Freq)
 RelFreq_p <-RelFreq*100
@@ -11,22 +10,10 @@ Cum_RelFreq_p<-Cum_RelFreq*100
 cbind(Freq,RelFreq,RelFreq_p)
 
 
-jpeg(
-        filename="bar1.jpeg",
-        width=8,
-        height=8,
-        units="in",
-        res=750)
 barplot(Freq, main="Frequencies")
-dev.off()
-jpeg(
-        filename="pie1.jpeg",
-        width=8,
-        height=8,
-        units="in",
-        res=750)
+
 pie(Freq,main="Pie Chart of \n  marital status",col=rainbow(length(Freq)))
-dev.off()
+
 
 Freq <-table(Wage$health_ins)
 RelFreq <- prop.table(Freq)
@@ -50,21 +37,11 @@ prop.table(con1, margin = 1)
 # by column
 prop.table(con1, margin = 2)
 
-jpeg(
-        filename="mosaicplot.jpeg",
-        width=8,
-        height=8,
-        units="in",
-        res=750)
-mosaicplot(con1)
-dev.off()
 
-jpeg(
-        filename="barplot2.jpeg",
-        width=8,
-        height=8,
-        units="in",
-        res=750)
+mosaicplot(con1)
+
+
+
 barplot(con1,
         main = "Frequencies",
         xlab = "health insurance",
@@ -74,7 +51,7 @@ legend("topright",
        c("Industrial","Information"),
        fill = c("red","blue")
 )
-dev.off()
+
 
 
 mean(as.numeric(Wage$health))
