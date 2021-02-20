@@ -21,6 +21,8 @@ meanOF <- sapply(OldFaithful, mean)
 sdOF <- sapply(OldFaithful, sd)
 
 cvOF <- sdOF / abs(meanOF)
+cvOF
+
 sapply(OldFaithful, IQR)
 sapply(OldFaithful, quantile,probs=c(0.1,0.9))
 
