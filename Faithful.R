@@ -1,7 +1,56 @@
 library(datasets)
+library(e1071)
+library(ggplot2)
+
 OldFaithful<-faithful
 eruptions <- OldFaithful$eruptions
 waiting <-  OldFaithful$waiting
+
+# mean
+(MeanOldF <- c(mean(eruptions),mean(waiting)))
+
+# median
+(MeanOldF <- c(median(eruptions),median(waiting)))
+
+# min
+(MinOldF <- c(min(eruptions),min(waiting)))
+
+# max
+(MaxOldF <- c(max(eruptions),max(waiting)))
+
+# quartiles & quantiles
+(qEruptions <- quantile(eruptions,probs=c(0.1,0.25,0.75,0.9)))
+(qwaiting <- quantile(waiting,probs=c(0.1,0.25,0.75,0.9)))
+
+
+# standard deviation
+(sdOldF <- c(sd(eruptions),sd(waiting)))
+
+# variance
+(varOldF <-c(var(eruptions),var(waiting)))
+
+# coeficient of variation
+(cvOkdF <- sdOldF/abs(MeanOldF))
+
+# range
+(RangeOkdF <- c(diff(range(eruptions)),diff(range(waiting))))
+
+# IQR
+(IQROkdF <- c(IQR(eruptions),IQR(waiting)))
+
+# skewness
+(skewnessOkdF <- c(skewness(eruptions),skewness(waiting)))
+
+# kurtosis
+(kurtosisOkdF <- c(kurtosis(eruptions),kurtosis(waiting)))
+
+# summary of basic descriptive statistics 
+summary(OldFaithful)
+
+
+sapply(OldFaithful, IQR)
+sapply(OldFaithful, quantile,probs=c(0.1,0.25,0.75,0.9))
+
 par(mfrow=c(1,2))
 hist(eruptions, main="Eruptions")
 hist(waiting, main="Waiting")
@@ -9,28 +58,6 @@ hist(waiting, main="Waiting")
 par(mfrow=c(1,2))
 boxplot(eruptions, main="Eruptions")
 boxplot(waiting, main="Waiting")
-
-
-c(mean(eruptions),sd(eruptions))
-summary(OldFaithful)
-
-
-
-meanOF <- sapply(OldFaithful, mean)
-
-sdOF <- sapply(OldFaithful, sd)
-
-cvOF <- sdOF / abs(meanOF)
-cvOF
-
-sapply(OldFaithful, IQR)
-sapply(OldFaithful, quantile,probs=c(0.1,0.9))
-
-
-library(e1071)
-sapply(OldFaithful, skewness)
-sapply(OldFaithful, kurtosis)
-
 
 par(mfrow=c(1,1))
 cor(waiting,eruptions)
@@ -41,12 +68,6 @@ plot(waiting,eruptions,
 
 
 groups <- ifelse(eruptions>3,1,0)
-
-
-
-
-
-library(ggplot2)
 
 ggplot(OldFaithful) +
   aes(x = waiting, y = eruptions,  colour = factor(groups)) +
