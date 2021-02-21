@@ -22,7 +22,6 @@ waiting <-  OldFaithful$waiting
 (qEruptions <- quantile(eruptions,probs=c(0.1,0.25,0.75,0.9)))
 (qwaiting <- quantile(waiting,probs=c(0.1,0.25,0.75,0.9)))
 
-
 # standard deviation
 (sdOldF <- c(sd(eruptions),sd(waiting)))
 
@@ -47,7 +46,6 @@ waiting <-  OldFaithful$waiting
 # summary of basic descriptive statistics 
 summary(OldFaithful)
 
-
 sapply(OldFaithful, IQR)
 sapply(OldFaithful, quantile,probs=c(0.1,0.25,0.75,0.9))
 
@@ -66,7 +64,6 @@ plot(waiting,eruptions,
      ylab = "Eruption time (min)",
      xlab = "Waiting time to next eruption (min)")
 
-
 groups <- ifelse(eruptions>3,1,0)
 
 ggplot(OldFaithful) +
@@ -77,8 +74,6 @@ ggplot(OldFaithful) +
 OldFaithful<-cbind(OldFaithful,groups)
 by(OldFaithful, groups, summary)
 
-
 par(mfrow=c(1,2))
 boxplot(eruptions~groups,xlab ="group",ylab ="eruptions")
-
 boxplot(waiting~groups,xlab ="group",ylab ="waiting")
