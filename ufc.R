@@ -2,6 +2,10 @@ rm(list=ls())
 library(e1071)
 library(FAwR)
 
+#load data
+data(ufc)
+dbh<- ufc$dbh.cm
+height<- ufc$height.m
 
 DesFUN = function(x,probs) {
   results<- c(n = length(which(!is.na(x))),m = mean(x,na.rm = TRUE), s = sd(x,na.rm = TRUE),
@@ -9,18 +13,12 @@ DesFUN = function(x,probs) {
   return(results)
 }
 
-
 probs=c(0,0.1,0.25,0.5,0.75,0.9,1)
-
-#load data
-data(ufc)
-dbh<- ufc$dbh.cm
-height<- ufc$height.m
 
 DesTABLE<-matrix(NA,nrow=3+length(probs)+2,ncol=2)
 DesTABLE[,1]<-DesFUN(dbh,probs)
 DesTABLE[,2]<-DesFUN(height,probs)
-rownames(DesTABLE) <- c("n","m","s","0%","10%","25%","50%","75%","90%","100%","sk","ku")
+rownames(DesTABLE) <- c("n","mean","sd","0%","10%","25%","50%","75%","90%","100%","sk","ku")
 colnames(DesTABLE) <- c("dbh","height")
 
 DesTABLE
