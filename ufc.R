@@ -25,6 +25,10 @@ colnames(DesTABLE) <- c("dbh","height")
 
 DesTABLE
 
+tab1 <- rbind(table(species),100*table(species)/length(species))
+rownames(tab1) <- c("Frequency","Percent")
+tab1
+
 par(mfrow=c(1,2))
 hist(dbh, main="Diameter at breast height")
 hist(height, main="height")
