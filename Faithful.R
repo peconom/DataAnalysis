@@ -19,7 +19,9 @@ waiting <-  OldFaithful$waiting
 (MaxOldF <- c(max(eruptions),max(waiting)))
 
 # quartiles & quantiles
+# eruptions
 (qEruptions <- quantile(eruptions,probs=c(0.1,0.25,0.75,0.9)))
+# waiting
 (qwaiting <- quantile(waiting,probs=c(0.1,0.25,0.75,0.9)))
 
 # standard deviation
