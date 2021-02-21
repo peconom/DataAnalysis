@@ -43,7 +43,7 @@ waiting <-  OldFaithful$waiting
 (skewnessOkdF <- c(skewness(eruptions),skewness(waiting)))
 
 # kurtosis
-(kurtosisOkdF <- c(kurtosis(eruptions),kurtosis(waiting)))
+(kurtosisOkdF <- c(kurtosis(eruptions,type = 1),kurtosis(waiting,type = 1)))
 
 # summary of basic descriptive statistics 
 summary(OldFaithful)
