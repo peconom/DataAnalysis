@@ -46,6 +46,10 @@ ggplot(ufc) +
   geom_point() +
   scale_colour_discrete(name = "species", labels = c("DF", "GF", "WC","WL"))
 
+ggplot(ufc) +
+  aes(x = dbh, y = height) +
+  geom_point() +  facet_grid(. ~ species)+ stat_smooth(method = "lm") +
+  background_grid(major = 'y', minor = "none") 
 
 treesperplot<-table(factor(ufc$plot,levels = 1:144))
 locations <- data.frame(plot = 1:144,
