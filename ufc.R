@@ -37,6 +37,7 @@ boxplot(dbh~ufc$species,xlab ="species",ylab ="Diameter at breast height")
 boxplot(height~ufc$species,xlab ="species",ylab ="height")
 
 library(beanplot)
+beanplot(dbh~ufc$species,xlab ="species",ylab ="Diameter at breast height", col="bisque",method="jitter")
 beanplot(height~ufc$species,xlab ="species",ylab ="height", col="bisque",method="jitter")
 
 library(ggplot2)
