@@ -8,17 +8,19 @@ dbh<- ufc$dbh.cm
 height<- ufc$height.m
 
 DesFUN = function(x,probs) {
-  results<- c(n = length(which(!is.na(x))),m = mean(x,na.rm = TRUE), s = sd(x,na.rm = TRUE),
-               quantile(x,probs=probs,na.rm=TRUE),skewness(x,na.rm=TRUE),kurtosis(x,na.rm=TRUE)) 
+  m = mean(x,na.rm = TRUE)
+  s = sd(x,na.rm = TRUE)
+  results<- c(n = length(which(!is.na(x))),m,s,cv=s/abs(m),
+              quantile(x,probs=probs,na.rm=TRUE),skewness(x,na.rm=TRUE),kurtosis(x,na.rm=TRUE)) 
   return(results)
 }
 
 probs=c(0,0.1,0.25,0.5,0.75,0.9,1)
 
-DesTABLE<-matrix(NA,nrow=3+length(probs)+2,ncol=2)
+DesTABLE<-matrix(NA,nrow=4+length(probs)+2,ncol=2)
 DesTABLE[,1]<-DesFUN(dbh,probs)
 DesTABLE[,2]<-DesFUN(height,probs)
-rownames(DesTABLE) <- c("n","mean","sd","0%","10%","25%","50%","75%","90%","100%","sk","ku")
+rownames(DesTABLE) <- c("n","mean","sd","cv","0%","10%","25%","50%","75%","90%","100%","sk","ku")
 colnames(DesTABLE) <- c("dbh","height")
 
 DesTABLE
