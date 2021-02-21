@@ -36,16 +36,16 @@ boxplot(dbh~ufc$species,xlab ="species",ylab ="Diameter at breast height")
 
 boxplot(height~ufc$species,xlab ="species",ylab ="height")
 
+library(beanplot)
+beanplot(height~ufc$species,xlab ="species",ylab ="height", col="bisque",method="jitter")
 
 library(ggplot2)
-
 ggplot(ufc) +
   aes(x = dbh, y = height,  colour = species) +
   geom_point() +
   scale_colour_discrete(name = "species", labels = c("DF", "GF", "WC","WL"))
 
 
- 
 treesperplot<-table(factor(ufc$plot,levels = 1:144))
 locations <- data.frame(plot = 1:144,
                          north.n = rep(c(12:1),12),
