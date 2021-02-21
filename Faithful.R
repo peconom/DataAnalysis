@@ -73,7 +73,6 @@ ggplot(OldFaithful) +
   geom_point() +
   scale_colour_discrete(name = "eruptions>3 min", labels = c("No", "Yes"))
 
-OldFaithful<-cbind(OldFaithful,groups)
 by(OldFaithful, groups, summary)
 
 par(mfrow=c(1,2))
