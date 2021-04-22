@@ -1,0 +1,100 @@
+library(psych)
+
+str(bfi)
+
+data("bfi.dictionary")
+bfi.dictionary
+
+#newdata<-bfi
+#newdata[,c(1, 9,10,11,12,22,25)] <-7-newdata[,c(1, 9,10,11,12,22,25)] 
+
+Agreeableness.dat<-data.frame(bfi[,1:5])
+Conscientiousness.dat<-data.frame(bfi[,6:10])
+Extraversion.dat<-data.frame(bfi[,11:15])
+EmotionalStability.dat<-data.frame(bfi[,16:20])
+Openness.dat<-data.frame(bfi[,21:25])
+
+
+
+psych::alpha(Agreeableness.dat)
+psych::alpha(Conscientiousness.dat)
+psych::alpha(Extraversion.dat)
+psych::alpha(EmotionalStability.dat)
+psych::alpha(Openness.dat)
+
+
+alphaAgree<-psych::alpha(Agreeableness.dat,check.keys=TRUE)
+alphaConcie<-psych::alpha(Conscientiousness.dat,check.keys=TRUE)
+alphaExtraversion<-psych::alpha(Extraversion.dat,check.keys=TRUE)
+alphaEmotionalSt<-psych::alpha(EmotionalStability.dat,check.keys=TRUE)
+alphaOpenness<-psych::alpha(Openness.dat,check.keys=TRUE)
+alphaAgree
+alphaConcie
+alphaExtraversion
+alphaEmotionalSt
+alphaOpenness
+
+scale.names <- c("Agreeableness", "Conscientiousness", "Extraversion","Emotional Stability", "Openness")
+alphaCronbach <- as.numeric(c(alphaAgree$total[1],
+                              alphaConcie$total[1],
+                              alphaExtraversion$total[1],
+                              alphaEmotionalSt$total[1],
+                              alphaOpenness$total[1]))
+alphaCronbachtable <- data.frame(Scale = scale.names, Raw_Alpha = alphaCronbach)
+alphaCronbachtable
+
+
+alphaCronbach2 <- as.numeric(c(alphaAgree$total[7:8],
+                              alphaConcie$total[7:8],
+                              alphaExtraversion$total[7:8],
+                              alphaEmotionalSt$total[7:8],
+                              alphaOpenness$total[7:8]))
+alphaCronbachtable2 <- data.frame(Scale = scale.names, Mean = alphaCronbach2[1], Sd=alphaCronbach2[2])
+alphaCronbachtable2
+
+alphaAgree$total
+alphaAgree$alpha.drop 
+alphaAgree$item.stats 
+
+
+#a?e?nuoeaoc aiUeooc
+
+bfi.keys.list <- list(Agreeableness=c(-1, 2, 3, 4, 5),
+                      Conscientiousness=c(6, 7, 8, -9, -10),
+                      Extraversion=c(-11, -12, 13, 14, 15),
+                      EmotionalStability=c(16, 17, 18, 19, 20),
+                      Openness=c(21, -22, 23, 24, -25))
+bfi.keys <- make.keys(bfi[,1:25],bfi.keys.list,item.labels=colnames(bfi))
+bfi.scored <-scoreItems(bfi.keys, bfi[,1:25], impute="NULL", min=1, max=6, digits=3)
+
+bfi.scored$alpha
+bfi.scored$av.r
+bfi.scored$cor
+datascores<-bfi.scored$scores
+datascores
+str(datascores)
+print(bfi.scored,short=FALSE)
+describe(datascores)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
