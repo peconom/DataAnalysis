@@ -19,7 +19,7 @@ MannKendall(D_LakeHuron)
 
 #log(AirPassengers)
 
-
+library(forecast)
 training <- subset(AirPassengers, end=length(AirPassengers)-12)
 test <- subset(AirPassengers, start=length(AirPassengers)-11)
 
