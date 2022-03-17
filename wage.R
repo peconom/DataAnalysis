@@ -13,7 +13,7 @@ cbind(Freq,RelFreq,RelFreq_p)
 barplot(Freq, main="Frequencies")
 
 pie(Freq,main="Pie Chart of \n  marital status",col=rainbow(length(Freq)))
-
+legend("topleft", legend=categ,fill=rainbow(length(Freq)))
 
 Freq <-table(Wage$health_ins)
 RelFreq <- prop.table(Freq)
