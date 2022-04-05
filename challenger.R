@@ -88,6 +88,8 @@ predictCI(fitfinal, newobs=data.frame(temp=c(-0.6,20)), 0.95)
 #diagnostics
 library("gridExtra")
 
+dt<-cbind(challenger,residuals.glm(fitfinal))
+
 fig1<-qplot(predict(fitfinal),residuals.glm(fitfinal))+
   geom_smooth()+
   labs(x = "Predicted values",
@@ -111,18 +113,6 @@ table(fitfinal.pred,challenger$fail.field)
 ######################################
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 ######################################
 ##Poisson
 
@@ -134,6 +124,8 @@ summary(fitn)
 
 ######################################
 fitn0<-glm(nfails.field~1, family="poisson",data=challenger)
+
+
 anova(fitn,test="Chisq")
 fitnfinal<-glm(nfails.field~temp, family="poisson",data=challenger)
 
@@ -147,7 +139,26 @@ gof
 
 summary(fitnfinal)
 
-predictCI(fitnfinal, newobs=data.frame(temp=c(-0.6,20)), 0.95)
+predictCIglm<-function(object, newobs, level){
+  
+  prediction <- predict(object, newdata = newobs, type = "link", se.fit=TRUE)
+  
+  z <- qnorm(1-(1-level)/2)
+  ginv <- object$family$linkinv  ## inverse link function
+  fit <- ginv(prediction[[1]])
+  
+  LowerLimit <- ginv(prediction[[1]] - z * prediction[[2]])
+  UpperLimit  <- ginv(prediction[[1]] + z * prediction[[2]])
+  
+  results <- cbind(newobs,fit,LowerLimit,UpperLimit)
+  colnames(results)<- c("newobs","fit","Lower Limit","Upper Limit")
+  return(results)
+}
+
+
+
+
+predictCIglm(fitnfinal, newobs=data.frame(temp=c(-0.6,20)), 0.95)
 
 
 dt<-cbind(challenger,residuals.glm(fitnfinal))
