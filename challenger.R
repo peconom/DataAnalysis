@@ -1,9 +1,10 @@
-library(car)
-library(ggplot2)
+url <- "https://raw.githubusercontent.com/peconom/DataAnalysis/main/challenger.txt"
+download.file(url,"challenger.txt")
 challenger <- read.delim("challenger.txt")
 head(challenger)
-par(mai=rep(0.75, 4.1))
 
+library(car)
+library(ggplot2)
 
 par(mai=rep(0.75, 4.1))
 layout(matrix(c(1,2,3,3), ncol = 2, byrow = TRUE))
@@ -16,10 +17,16 @@ points(-0.6,1,pch=16)
 text(-0.6,1,label="Challenger", pos=4)
 
 
-
-
 fit1<-glm(fail.field~temp+pres.field, family="binomial",data=challenger)
 summary(fit1)
+
+
+# Asymptotic CIs (MLE  ±  SE * z_(1-alpha)/2)
+confint.default(fit1,level=0.95)
+
+ exp(coef(fit1))
+ exp(confint.default(fit1,level=0.95))
+
 
 x<-seq(-1,30, length=100)
 y<-exp(-(fit1$coefficients[1]+fit1$coefficients[2]*x+fit1$coefficients[3]*mean(challenger$pres.field)))
@@ -45,8 +52,9 @@ AICModels<-c(AIC(fit0),AIC(fitfinal),AIC(fit1))
 
 gof<-cbind(R2D,AICModels)
 rownames(gof)<-c("NULL","temp","temp+pres.field")
-
-stepAIC(fit0,direction="both",scope=list(upper=fit3,lower=fit0))
+gof
+library(MASS)
+stepAIC(fit0,direction="both",scope=list(upper=fit1,lower=fit0))
 
 summary(fitfinal)
 
