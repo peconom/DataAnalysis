@@ -47,7 +47,7 @@ KMO(data) # KMO and MSA
 
 famodel1<-fa(data, nfactors=25, rotate="none")
 famodel1
-scree(data)
+(scree(data))
 fa.parallel(data)
 my.vss <- VSS(data)
 my.vss
@@ -123,7 +123,7 @@ plot(pcanalysis$values,type="b")
 pcanalysis1<-principal(cormatrix,nfactors=2,rotate="none")
 pcanalysis1
 
-rm()
+rm(list=ls())
 library(psych)
 library(psychTools)
 library(dplyr)
