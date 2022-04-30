@@ -13,7 +13,7 @@ pcanalysis<-principal(coriris,nfactors=length(data),rotate="none")
 pcanalysis
 
 eigenvpca<-eigen(cor(data))
-eigenv
+eigenvpca
 
 data1 <- data %>% mutate_all(~(scale(.) %>% as.vector))
 a=rbind(c(0.89, 0.36, -0.28, -0.04),c(-0.46, 0.88,  0.09,  0.02), c(0.99, 0.02,  0.05,  0.12),c(0.96,0.06,  0.24, -0.08))
