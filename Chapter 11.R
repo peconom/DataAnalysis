@@ -143,7 +143,7 @@ KMO(data) # KMO and MSA
 
 famodel1<-fa(data, nfactors=20, rotate="none")
 famodel1
-scree(data)
+(scree(data))
 fa.parallel(data)
 my.vss <- VSS(data)
 my.vss
