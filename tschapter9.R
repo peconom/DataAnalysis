@@ -1,5 +1,4 @@
 library(datasets)
-library(ggplot2)
 plot(sunspot.month,main="sunspots by month")
 plot(EuStockMarkets[,1],main="Daily Closing Prices",ylab="DAX")
 plot(co2, main="Annual Carbon Dioxide Uptake in Grass Plants")
@@ -115,7 +114,7 @@ dfM4=data.frame(detrendM4=as.vector(detrendM4),
               month= factor(rep(seq(1:12),length(training)/12))
 )
 
-
+library(ggplot2)
 library(reshape2)
 library(dplyr)
 dfM4.long<-melt(dfM4,id.vars="month")
