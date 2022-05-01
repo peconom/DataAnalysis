@@ -79,6 +79,8 @@ fviz_cluster(list(data =USArrests , cluster = sub_grp))
 aggregate(datanew,by=list(cluster=datanew$cluster), mean)
 
 rm(list=ls())
+library(ggplot2)
+library(cluster)
 library(stats)
 library(factoextra)
 data(USArrests)
