@@ -1,4 +1,5 @@
 rm(list=ls())
+library(ggplot2)
 library(cluster)    
 library(purrr)
 library(dplyr)
