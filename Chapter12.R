@@ -121,6 +121,7 @@ clMethods = clmethods, validation = validationmeasures, metric="euclidean",metho
 summary(result)
 
 rm(list=ls())
+library(ggplot2)
 library(cluster)    
 library(purrr)
 library(dplyr)
@@ -130,7 +131,7 @@ library(rattle)
 data(wine)
 str(wine)
 
-true_label <- wine$Class
+true_label <- wine$Type
 wine$Class <- NULL
 str(wine)
 
@@ -174,6 +175,8 @@ aggregate(datanew,by=list(cluster=datanew$cluster), mean)
 table(datanew$cluster,true_label)
 
 rm(list=ls())
+library(ggplot2)
+library(cluster)
 library(stats)
 library(factoextra)
 library(rattle)
