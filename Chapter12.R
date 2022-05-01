@@ -54,6 +54,7 @@ pltree(hc4, cex = 0.6, hang = -1)
 
 hc5 <- hclust(d, method = "ward.D2")
 
+library(factoextra)
 gap_stat <- clusGap(datascaled, FUN = hcut, nstart = 25, K.max = 10, B = 50)
 fviz_gap_stat(gap_stat)
 
