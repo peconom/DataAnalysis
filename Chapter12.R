@@ -183,8 +183,8 @@ library(rattle)
 data(wine)
 str(wine)
 any(is.na(wine))
-true_label <- wine$Class
-wine$Class <- NULL
+true_label <- wine$Type
+wine$Type <- NULL
 datascaled <- scale(wine)
 head(datascaled)
 
