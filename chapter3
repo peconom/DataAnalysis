@@ -33,12 +33,11 @@ moments::skewness(petalwidth)
 moments::kurtosis(petalwidth)
 
 
-hist(petalwidth)
+
+hist(petalwidth,prob=T,ylim=c(0,1.2))
 # fitted normal density
 f.den <- function(t) dnorm(t,mean(petalwidth),sqrt(var(petalwidth)))
-curve(f.den,xlim=c(0,3))
-hist(petalwidth,prob=T,add=T)
-par (mfrow=c (1 ,2) )
+curve(f.den,xlim=c(0,3),add=T)
 boxplot (petalwidth, xlab ="  " , ylab =" Petal Width " )
 
 
