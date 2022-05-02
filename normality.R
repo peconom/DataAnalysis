@@ -10,12 +10,10 @@ moments::skewness(sepallength)
 moments::kurtosis(sepallength)
 
 
-hist(sepallength)
+hist(sepallength,prob=T,ylim=c(0,0.5))
 # fitted normal density
 f.den <- function(t) dnorm(t,mean(sepallength),sqrt(var(sepallength)))
-curve(f.den,xlim=c(4,8))
-hist(sepallength,prob=T,add=T)
-par (mfrow=c (1 ,2) )
+curve(f.den,xlim=c(4,8),add=T)
 boxplot (sepallength, xlab ="  " , ylab =" Sepal Length " )
 
 library(rcompanion)
@@ -44,7 +42,7 @@ qqline(sepallength)
 
 library(normtest)
 library(nortest)
-# Adjusted Jarque–Bera test for normality
+# Adjusted Jarqueâ€“Bera test for normality
 #The p-value is computed by Monte Carlo simulation 10000 runs
 ajb.norm.test(sepallength,10000)
 
