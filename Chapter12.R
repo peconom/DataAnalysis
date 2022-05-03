@@ -192,6 +192,7 @@ head(datascaled)
 fviz_nbclust(datascaled, kmeans, method = "wss")
 #optimal number based on gap statistic
 gap_stat <- clusGap(datascaled,FUN = kmeans,nstart = 25,K.max = 10,B = 50)
+gap_stat
 fviz_gap_stat(gap_stat)
 
 set.seed(1)
