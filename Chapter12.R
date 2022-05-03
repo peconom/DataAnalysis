@@ -206,7 +206,11 @@ aggregate(wine, by=list(cluster=km$cluster), mean)
 
 table(datanewkmeans$cluster,true_label)
 
+library(NbClust)
+library(cluster)
 
+nclust1<-NbClust(datascaled,distance="euclidean",min.nc=2,max.nc=13,method="kmeans")
+nclust2<-NbClust(datascaled,distance="euclidean",min.nc=2,max.nc=13,method="ward.D2")
 
 
 
