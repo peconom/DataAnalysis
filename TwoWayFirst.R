@@ -1,3 +1,11 @@
+ToothGrowth$dose <- factor(ToothGrowth$dose, 
+                           levels = c(0.5, 1, 2),
+                           labels = c("D0.5", "D1", "D2")
+                           )
+
+library("ggpubr")
+ggboxplot(ToothGrowth, x = "dose", y = "len", color = "supp")
+
 ibrary(dplyr)
 # Normality test for each group
 ToothGrowth %>%
