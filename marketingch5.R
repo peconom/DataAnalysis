@@ -9,9 +9,6 @@ library(olsrr)
 data("marketing", package = "datarium")
 
 summary(marketing)
-
-pairs(marketing)
-
 GGally::ggpairs(marketing, progress=F)
 
 lm1<-lm(sales~youtube+facebook+newspaper,data=marketing)
