@@ -67,6 +67,7 @@ plot(waiting,eruptions,
      xlab = "Waiting time to next eruption (min)")
 
 groups <- ifelse(eruptions>3,1,0)
+table(groups)
 
 ggplot(OldFaithful) +
   aes(x = waiting, y = eruptions,  colour = factor(groups)) +
