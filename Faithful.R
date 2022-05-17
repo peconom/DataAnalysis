@@ -30,8 +30,8 @@ waiting <-  OldFaithful$waiting
 # variance
 (varOldF <-c(var(eruptions),var(waiting)))
 
-# coeficient of variation
-(cvOkdF <- sdOldF/abs(MeanOldF))
+# coefficient of variation
+(cvOldF <- sdOldF/abs(MeanOldF))
 
 # range
 (RangeOkdF <- c(diff(range(eruptions)),diff(range(waiting))))
@@ -78,3 +78,4 @@ by(OldFaithful, groups, summary)
 par(mfrow=c(1,2))
 boxplot(eruptions~groups,xlab ="group",ylab ="eruptions")
 boxplot(waiting~groups,xlab ="group",ylab ="waiting")
+
