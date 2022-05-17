@@ -52,7 +52,7 @@ DesFUNGroup = function(x,probs,group) {
   return(results)
 }
 
-
+probs<-c(0,0.1,0.25,0.5,0.75,0.9,1)
 DesTABLEeruption<-DesFUNGroup(eruptions,probs,groups)
 colnames(DesTABLEeruption) <- c("eruptions<3 min","eruptions >3 min")
 DesTABLEeruption
