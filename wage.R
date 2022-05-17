@@ -11,9 +11,11 @@ cbind(Freq,RelFreq,RelFreq_p)
 
 
 barplot(Freq, main="Frequencies")
-
-pie(Freq,main="Pie Chart of \n  marital status",col=rainbow(length(Freq)))
+piepercent<- round(100*Freq/sum(Freq), 1)
+categ <-  names(piepercent)
+pie(Freq,main="Pie Chart of \n  marital status",col=rainbow(length(Freq)),labels = paste0(round(RelFreq_p,2), "%"))
 legend("topleft", legend=categ,fill=rainbow(length(Freq)))
+
 
 Freq <-table(Wage$health_ins)
 RelFreq <- prop.table(Freq)
