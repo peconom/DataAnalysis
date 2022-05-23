@@ -63,7 +63,7 @@ famodel3$scores
 head(famodel3$scores,20)
 datanew<- cbind(data,famodel3$scores)
 
-rm()
+rm(list = ls())
 library(psych)
 library(dplyr)
 str(bfi)
