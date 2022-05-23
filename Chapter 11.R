@@ -24,7 +24,7 @@ plot(pcanalysis$values,type="b")
 pcanalysis1<-principal(coriris,nfactors=2,rotate="none")
 pcanalysis1
 
-rm()
+rm(list = ls())
 library(psych)
 library(ppcor)
 library(dplyr)
