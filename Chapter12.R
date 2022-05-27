@@ -61,6 +61,11 @@ fviz_gap_stat(gap_stat)
 sub_grp <- cutree(hc5, k = 4)
 sub_grp
 
+library(dendextend)
+dend <- as.dendrogram(as.hclust(hc5), k = 4)
+d1=color_branches(dend,k=4)
+plot(d1)
+
 # Cut agnes() tree into 4 groups
 
 cutree(as.hclust(hc3), k = 4)
