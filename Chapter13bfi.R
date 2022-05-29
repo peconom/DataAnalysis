@@ -69,4 +69,3 @@ datanew1<- cbind(bfi,datascores)
 
 newdata<-bfi
 newdata[,c(1, 9,10,11,12,22,25)] <-7-newdata[,c(1, 9,10,11,12,22,25)] 
-
