@@ -37,12 +37,13 @@ alphaCronbachtable <- data.frame(Scale = scale.names, Raw_Alpha = alphaCronbach)
 alphaCronbachtable
 
 
-alphaCronbach2 <- as.numeric(c(alphaAgree$total[7:8],
-                              alphaConcie$total[7:8],
-                              alphaExtraversion$total[7:8],
-                              alphaEmotionalSt$total[7:8],
-                              alphaOpenness$total[7:8]))
-alphaCronbachtable2 <- data.frame(Scale = scale.names, Mean = alphaCronbach2[1], Sd=alphaCronbach2[2])
+alphaCronbach2 <- matrix(c(alphaAgree$total[7:8],
+                               alphaConcie$total[7:8],
+                               alphaExtraversion$total[7:8],
+                               alphaEmotionalSt$total[7:8],
+                               alphaOpenness$total[7:8]),ncol=2,byrow =TRUE)
+
+alphaCronbachtable2 <- data.frame(Scale = scale.names, Mean = as.numeric(alphaCronbach2[,1]), Sd=as.numeric(alphaCronbach2[,2]))
 alphaCronbachtable2
 
 alphaAgree$total
