@@ -1,5 +1,7 @@
+rm(list=ls())
 library(psych)
 str(bfi)
+?bfi
 
 Agreeableness.dat<-data.frame(bfi[,1:5])
 Conscientiousness.dat<-data.frame(bfi[,6:10])
@@ -46,12 +48,6 @@ alphaCronbachtable2
 alphaAgree$total
 alphaAgree$alpha.drop 
 alphaAgree$item.stats 
-
-bfi.keys.list <- list(Agreeableness=c(-1, 2, 3, 4, 5),
-Conscientiousness=c(6, 7, 8, -9, -10),
-Extraversion=c(-11, -12, 13, 14, 15),
-EmotionalStability=c(16, 17, 18, 19, 20),
-Openness=c(21, -22, 23, 24, -25))
 
 bfi.keys.list <- list(Agreeableness=c(-1, 2, 3, 4, 5),
                       Conscientiousness=c(6, 7, 8, -9, -10),
