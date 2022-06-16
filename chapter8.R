@@ -16,22 +16,24 @@ dataWeightMelted
 library(ez)
 ezANOVA(data = dataWeightMelted, dv = .(Weight),wid = .(id),within = .(Time),detailed = T,type = 3)
 
-
 an1 <- aov(formula = Weight~Time + Error(id/Time),data = dataWeightMelted)
 summary(an1)
 
+ezANOVA(data = dataWeightMelted, dv = .(Weight),wid = .(id),within = .(Time),detailed = T,type = 3)
+
 pairwise.t.test(x = dataWeightMelted$Weight,g = dataWeightMelted$Time,paired = T,p.adjust.method = "bonf")
+summary(Time1)
+summary(Time2)
+summary(Time3)
 
 initData <- read.csv(file = "data_Sprint_Repeated_v1a.csv",stringsAsFactors = T)
 summary(initData)
-
 
 d3 <- reshape::melt(initData,id.vars="ids",variable_name="Period")
 names(d3)[3] <- "SprintTime"
 
 ggboxplot(data = d3,x = "Period", y = "SprintTime")
 ggerrorplot(data = d3, x = "Period", y = "SprintTime",desc_stat = "mean_se")
-
 
 by(data = d3$SprintTime,INDICES = d3$Period,FUN = shapiro.test)
 
@@ -44,11 +46,12 @@ pairwise.t.test(x = d3$SprintTime,g = d3$Period,paired = T,p.adjust.method = "bo
 d3 <- read.xlsx(xlsxFile = "DESI-year-country.xlsx")
 d3$country <- as.factor(d3$country)
 d3$year <- as.factor(d3$year)
-
 summary(d3)
 
-by(data = d3$DESI,INDICES = d3$year,FUN = shapiro.test)
+ggboxplot(data = d3,x = "year", y = "DESI")
+ggerrorplot(data = d3, x = "year", y = "DESI",desc_stat = "mean_se")
 
+by(data = d3$DESI,INDICES = d3$year,FUN = shapiro.test)
 
 library(ez)
 an2 <- ezANOVA(data = d3,dv = .(DESI),wid = .(country),within = .(year),detailed = T,type = 3)
