@@ -19,6 +19,7 @@ bartlett.test(score~group, data = df)
 
 levene.test(df$score, df$group, location="mean")
 
+
 library(datasets)
 oneway.test(weight~group,var.equal=TRUE, data = PlantGrowth)
 
@@ -69,9 +70,12 @@ dunnettT3Test(score~group, df)
 kruskal.test(PlantGrowth$weight, PlantGrowth$group) 
 
 
+
 d1 <- read.csv("datasmoking.csv",stringsAsFactors = T)
 summary(d1)
 by(data = d1$Sprint,INDICES = d1$Smoking,FUN = summary)
+
+boxplot(formula=Sprint~Smoking, data=d1)
 
 by(data = d1$Sprint,INDICES = d1$Smoking,FUN = shapiro.test)
 
@@ -99,107 +103,4 @@ pairwise.wilcox.test(x = d1$NumberOfIntrusiveMemories,g = d1$Condition,p.adjust.
 pairwise.wilcox.test(x = d1$NumberOfIntrusiveMemories,g = d1$Condition,p.adjust.method = "bonf")
 
 
-ToothGrowth$dose <- factor(ToothGrowth$dose, 
-                           levels = c(0.5, 1, 2),
-                           labels = c("D0.5", "D1", "D2")
-                           )
-
-library(dplyr)
-# Normality test for each group
-ToothGrowth %>%
-  group_by(dose, supp) %>% 
-  summarise(n=n(),
-            statistic = shapiro.test(len)$statistic,
-            p.value = shapiro.test(len)$p.value)
-#Homogeneity of Variance
-library(car)
-leveneTest(len ~ dose*supp  , data = ToothGrowth)
-
-aov.res <- aov(len ~ dose + supp +  dose:supp, data = ToothGrowth)
-summary(aov.res)
-
-library(lsmeans)
-Tuk<-lsmeans(aov.res, list(pairwise~dose|supp,pairwise~supp|dose,pairwise~dose+supp),  adjust="tukey")
-Tuk
-
-plot(Tuk[[1]])
-plot(Tuk[[2]])  
-plot(Tuk[[3]])  
-plot(Tuk[[4]])  
-plot(Tuk[[5]])  
-plot(Tuk[[6]])  
-
-
-library(datarium)
-library(dplyr)
-# Normality test for each group
-jobsatisfaction %>%
-  group_by(education_level, gender) %>% 
-  summarise(n=n(),
-            statistic = shapiro.test(score)$statistic,
-            p.value = shapiro.test(score)$p.value)
-#Homogeneity of Variance
-library(car)
-leveneTest(score ~ education_level*gender  , data = jobsatisfaction)
-
-
-model = lm(score ~ education_level + gender +  education_level:gender, data = jobsatisfaction)
-aov.III <- Anova(model, type="III")
-aov.III
-
-library(palmerpenguins)
-str(penguins)
-
-by(data=penguins$flipper_length_mm,INDICES = penguins$species,FUN = summary)
-
-by(data = penguins$flipper_length_mm,INDICES = penguins$species,FUN = shapiro.test)
-
-
-library("lawstat") 
-leveneTest(penguins$flipper_length_mm, penguins$species, location="mean")
-
-res.aov <- aov(formula = flipper_length_mm~species,data = penguins)
-summary(res.aov)
-
-pairwise.t.test(x = penguins$flipper_length_mm,g = penguins$species,p.adjust.method = "holm" )
-pairwise.t.test(x = penguins$flipper_length_mm,g = penguins$species,p.adjust.method = "bonf" )
-TukeyHSD(res.aov)
-
-
-
-
-library(lsmeans)
-Tuk<-lsmeans(model.edu.inter, list(pairwise~education_level:gender),  adjust="tukey")
-Tuk
-
-library(palmerpenguins)
-library(tidyverse)
-datain<-penguins %>% select(flipper_length_mm, species, sex)
-datain<-na.omit(datain)
-
-
-library(dplyr)
-# Normality test for each group
-datain %>%
-  group_by(species, sex) %>%
-  summarise(n=n(),
-            statistic = shapiro.test(flipper_length_mm)$statistic,
-            p.value = shapiro.test(flipper_length_mm)$p.value)
-
-#Homogeneity of Variance
-library(car)
-leveneTest(flipper_length_mm ~ species*sex , data = datain)
-
-
-model = lm(flipper_length_mm ~ species*sex, data = datain)
-aovtype <- Anova(model, type="III")
-aovtype
-
-
-library(stats)
-with(datain, {
-  interaction.plot(species, sex, flipper_length_mm, fixed = TRUE)
-  interaction.plot(species, sex, flipper_length_mm, fixed = TRUE, col = 2:3, leg.bty = "o")
-  interaction.plot(species, sex, flipper_length_mm, fixed = TRUE, col = 2:3, type = "b", main="Interaction plot")
-})
 
