@@ -43,9 +43,18 @@ an2
 
 pairwise.t.test(x = d3$SprintTime,g = d3$Period,paired = T,p.adjust.method = "bonf")
 
-d3 <- read.xlsx(xlsxFile = "DESI-year-country.xlsx")
+url <- "https://raw.githubusercontent.com/peconom/DataAnalysis/main/DESI-year-country.xlsx"
+library(httr)
+temp_file <- tempfile(fileext = ".xlsx")
+req <- GET(url, 
+           # authenticate using GITHUB_PAT
+           authenticate(Sys.getenv("GITHUB_PAT"), ""),
+           # write result to disk
+           write_disk(path = temp_file))
+d3  <- readxl::read_excel(temp_file)
 d3$country <- as.factor(d3$country)
 d3$year <- as.factor(d3$year)
+
 summary(d3)
 
 ggboxplot(data = d3,x = "year", y = "DESI")
@@ -65,8 +74,7 @@ Month1 <-c(162, 163,165, 200,166, 212,163,171,173,165)
 Month2<- c(174, 162, 171, 184, 166, 207,161,148,165,162)
 
 dataDiavitis <- data.frame(Month0 , Month1 , Month2, id=factor(1:length(Month0)))
-dataDiavitisMelted <-reshape2::melt(dataDiavitis,id.vars="id",variable.name="Month",
-                                  value.name = "Diavitis")
+dataDiavitisMelted <-reshape2::melt(dataDiavitis,id.vars="id",variable.name="Month",value.name = "Diavitis")
 dataDiavitisMelted 
 
 by(data = dataDiavitisMelted$Diavitis,INDICES = dataDiavitisMelted$Month,FUN = summary)
