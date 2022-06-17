@@ -80,5 +80,3 @@ dataDiavitisMelted
 by(data = dataDiavitisMelted$Diavitis,INDICES = dataDiavitisMelted$Month,FUN = summary)
 
 ezANOVA(data = dataDiavitisMelted, dv = .(Diavitis),wid = .(id),within = .(Month),detailed = T,type = 3)
-
-pairwise.t.test(x = dataDiavitisMelted$Diavitis,g = dataDiavitisMelted$Month,paired = T,p.adjust.method = "bonf")
