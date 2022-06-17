@@ -196,5 +196,10 @@ aovtype <- Anova(model, type="III")
 aovtype
 
 
-
+library(stats)
+with(datain, {
+  interaction.plot(species, sex, flipper_length_mm, fixed = TRUE)
+  interaction.plot(species, sex, flipper_length_mm, fixed = TRUE, col = 2:3, leg.bty = "o")
+  interaction.plot(species, sex, flipper_length_mm, fixed = TRUE, col = 2:3, type = "b", main="Interaction plot")
+})
 
