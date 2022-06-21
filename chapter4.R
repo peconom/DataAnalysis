@@ -126,7 +126,7 @@ library(Hmisc)
 binconf(45, 100, alpha=0.05, method=c("all"))
 
 library(binom)
-binom.confint(45, 100, alpha=0.05,methods=c("exact","wilson","asymptotic"))
+binom.confint(45, 100, alpha=0.05,methods=c("exact","wilson","asymptotic","agresti-coull"))
 
 prop.test(45,100, p = NULL, correct=FALSE)$conf.int
 
