@@ -116,7 +116,7 @@ library(confintr)
 data1<- c(326.5,326.6,326.6,326.8,326.3,326.6,326.7,326.7,326.3)
 data2 <- c(326.5,326.6,326.5,326.7,326.3,326.5,326.7,326.6,326.2)
 diff<- data1-data2
-ci_mean(diff,type = "bootstrap")
+ci_mean(diff,type = "bootstrap", R=10000)
 
 #Example 4.6
 #----------------------------------------------------------------
@@ -151,6 +151,14 @@ c(lower=df * v/chiupper, upper=df * v/chilower)
 }
 data<-rnorm(50)
 var.interval(data,0.95)
+
+var.intervalmod=function(n, v, conf.level) {
+  df=n-1
+  chilower=qchisq((1 - conf.level)/2, df)
+  chiupper=qchisq((1 - conf.level)/2, df, lower.tail=FALSE)
+  c(lower=df * v/chiupper, upper=df * v/chilower)
+}
+var.intervalmod (50,4,0.05)
 
 library(Ecfun)
 confint.var(var(data),length(data)-1,level=0.95)
@@ -197,24 +205,30 @@ varTest(B, alternative = "greater", conf.level = 0.95,sigma.squared = 0.0025, da
 library(EnvStats)
 A <- c(6.33, 6.28, 6.5, 6.40, 6.45)
 B <- c(6.51, 6.55, 6.43, 6.51, 6.62, 6.40, 6.48)
-var.test(A, B, ratio = 1, alternative = c("two.sided"),
-         conf.level = 0.90)
+var.test(A, B, ratio = 1, alternative = c("two.sided"),conf.level = 0.90)
 
 #Example 4.15
 #----------------------------------------------------------------
-prop.test(45,100,0.5, correct = TRUE)
+prop.test(45,100,0.5, correct=FALSE)
 
 #Example 4.16
 #----------------------------------------------------------------
 prop.test(c(4, 12), c(110, 150), alternative =  "less", correct = FALSE)
 
-#section 4.4
+#subsection 4.3.8
+#----------------------------------------------------------------
+x<-matrix(c(13,49,55,183),2,2)
+mcnemar.test(x)
+mcnemar.test(x,correct=FALSE)
 
+#section 4.4
+#----------------------------------------------------------------
 wilcox.test(x, y,alternative = "two.sided",mu = 0, paired = FALSE)
 
 wilcox.test(x, y,alternative = "two.sided",mu = 0, paired = FALSE,correct = TRUE,conf.level=0.95 )
 
 wilcox.test(x, y, paired = TRUE, alternative = "two.sided")
+
 
 #Example 4.18
 #----------------------------------------------------------------
@@ -229,13 +243,28 @@ obs<- c(2291, 1631, 282, 79, 325,332, 48, 12)
 prob<- c(0.373, 0.385, 0.0627, 0.028, 0.071, 0.073, 0.0013, 0.006)
 
 chisq.test(obs, p=prob)
+chisq.test(obs, p=prob)$expected
 
 #Example 4.20
+#----------------------------------------------------------------
+data<-c(5,3,3,3,2,3,3,2,5,3,5,5,3,4,4,2,4,5,4,2,2,5,6,3,4,4,6,5,3,5,4,5,5,3,6,5,6,3,4,6)
+tab<-table(data) 
+tab 
+lambdaest<-mean(data) 
+lambdaest 
+probs = dpois(c(2,3,4,5,6), lambdaest)
+comp=1-sum(probs)
+chisq.test(x=c(5,11,8,11,5,0), p=c(probs, comp))
+
+#Example 4.21
 #----------------------------------------------------------------
 mPau <-matrix(c(2291, 1631, 282, 79, 325,332, 48, 12), nrow =2, ncol=4, byrow =T)
 chisq.test(mPau)
 
+chisq.test(mPau)$expected
 
+library(stats)
+fisher.test(mPau)
 
 #Section 4.6
 #----------------------------------------------------------------
@@ -243,19 +272,21 @@ library(HSAUR)
 data("BtheB",package = "HSAUR")
 str(BtheB)
 
-summary(BtheB)
-
+summary(BtheB[,1:3])
+summary(BtheB[,4:8])
 
 data_for_boxplot <- reshape::melt(data = BtheB[,c("bdi.pre","bdi.2m")])
 qplot(x = variable,y = value,data = data_for_boxplot,geom = "boxplot",fill =variable)
-
-
 
 chisq.test(BtheB$length, BtheB$drug)
 chisq.test(BtheB$treatment, BtheB$drug)
 chisq.test(BtheB$treatment, BtheB$length)
 
 table(BtheB$treatment, BtheB$drug)
+
+by(BtheB$bdi.pre, BtheB$treatment,shapiro.test)
+
+var.test(formula=bdi.pre~treatment, data=BtheB)
 
 t.test(formula=bdi.pre~treatment, data=BtheB,var.equal=F)
 
@@ -265,8 +296,10 @@ t.test(x = data_only_TAU$bdi.pre, y = data_only_TAU$bdi.2m,paired = T,alternativ
 data_only_BtheB <- BtheB[BtheB$treatment=="BtheB",]
 t.test(x = data_only_BtheB$bdi.pre, y = data_only_BtheB$bdi.2m,paired = T, ,alternative = "greater")
 
+by(BtheB$bdi.2m, BtheB$treatment,shapiro.test)
 
 t.test(formula=bdi.2m~treatment, data=BtheB,var.equal=F,alternative = "greater")
+
 
 #Autoaxiologisi 4.1
 #----------------------------------------------------------------
