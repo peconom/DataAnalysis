@@ -22,7 +22,6 @@ upper.boundb <- sample.meanb +z.score * sample.meanerrorb
 cat("CI for A = (",lower.bounda,",", upper.bounda, ")\n")
 cat("CI for B = (",lower.boundb,",",upper.boundb, ")\n")
 
-
 library(asbio)
 ci.mu.z(A, conf = 0.95, sigma = sqrt(0.008))
 ci.mu.z(B, conf = 0.95, sigma = sqrt(0.005))
@@ -68,7 +67,7 @@ ci.mu.t(conf=0.95,summarized=TRUE,xbar=6.5, sd=0.07348469, n=7)
 library(confintr)
 data<- c(6.33, 6.28, 6.5, 6.40, 6.45)
 ci_mean(data,type = "bootstrap")
-
+ci_mean(data,type="bootstrap", R=10000, seed =1234)
 
 #Example 4.3
 #----------------------------------------------------------------
@@ -103,7 +102,7 @@ t.test(A,B, paired = FALSE, var.equal=FALSE,conf.level = 0.99)$conf.int
 library(confintr)
 data1<- c(6.33, 6.28, 6.5, 6.40, 6.45)
 data2 <- c(6.51, 6.55, 6.43, 6.51, 6.62, 6.40, 6.48)
-ci_mean_diff(data1, data2, type = "bootstrap", R  = 9999)
+ci_mean_diff(data1, data2, type="bootstrap", R =10000)
 
 #Example 4.5
 #----------------------------------------------------------------
