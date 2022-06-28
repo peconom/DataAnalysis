@@ -31,7 +31,7 @@ summary(initData)
 
 d3 <- reshape::melt(initData,id.vars="ids",variable_name="Period")
 names(d3)[3] <- "SprintTime"
-
+library(ggpubr)
 ggboxplot(data = d3,x = "Period", y = "SprintTime")
 ggerrorplot(data = d3, x = "Period", y = "SprintTime",desc_stat = "mean_se")
 
